@@ -3,6 +3,9 @@ import java.awt.event.*;
 import javax.swing.*;
 //import java.awt.geom.*;
 
+//Project made by Adam Smith 
+
+
 public class RunSweeper extends JFrame  {
 
     RunSweeper(){
