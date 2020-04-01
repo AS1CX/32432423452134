@@ -24,11 +24,13 @@ import javax.swing.*;
     public JButton getButton(){
         return spot;
     }
-        public int getNumber(){
+    public int getNumber(){
             return num;
         }
     public String toString(){
         return spot.getText();
     }
-
+    public boolean getMine(){
+        return mine;
+    }
 }

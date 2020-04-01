@@ -142,5 +142,22 @@ public class MineGrid {
    }
 
     */
+public void lose(MineSpot s){
+    if (s.toString().equals("*")){
+        for(int x = 0;x < grid.length;x++){
+            for(int y = 0;y < grid[x].length;y++){
+                if(!(grid[x][y].getMine() == true)) {
+                    grid[x][y].getButton().setVisible(false);
+                    RunSweeper.lose.setVisible(true);
+
+                }else{
+                    grid[x][y].showNum();
+                }
+            }
+        }
+    }
 }
+
+}
+
 

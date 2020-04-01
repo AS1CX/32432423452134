@@ -3,15 +3,18 @@ import java.awt.event.*;
 import javax.swing.*;
 //import java.awt.geom.*;
 
-//Project made by Adam Smith 
+//Project made by Adam Smith
 
 
 public class RunSweeper extends JFrame  {
+
+    public static JLabel lose;
 
     RunSweeper(){
        createGUI();
 
     }
+
     public MineGrid ms= new MineGrid(18);
     public ActionListener mineClicked = new ActionListener() {
         @Override
@@ -21,6 +24,8 @@ public class RunSweeper extends JFrame  {
                 for (int y = 0; y < ms.grid[x].length; y++) {
                     if (ms.grid[x][y].getButton() == clicked) {
                         ms.grid[x][y].showNum();
+                        ms.lose(ms.grid[x][y]);
+
                         //ms.deleteZeros(x,y);
                     }
                 }
@@ -43,6 +48,8 @@ public class RunSweeper extends JFrame  {
             }
             //revalidate();
             repaint();
+
+
         }
 
 
@@ -50,6 +57,10 @@ public class RunSweeper extends JFrame  {
     private void createGUI(){
 
         JButton start = new JButton("Start");
+         lose = new JLabel("You Lost");
+        lose.setBounds(400,300,100,50);
+        add(lose);
+        lose.setVisible(false);
         start.setBounds(0,600,100,100);
         start.addActionListener(startE);
         add(start);
@@ -64,9 +75,7 @@ public class RunSweeper extends JFrame  {
 
         setVisible(true);
     }
-    public void actionPerformed(ActionEvent e) {
 
-    }
 
     public static void main(String[] args) {
 
