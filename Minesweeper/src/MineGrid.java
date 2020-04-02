@@ -10,11 +10,15 @@ public class MineGrid {
     public int[][] statN;
     public boolean[][] statM;
     public int mines;
+
+
+
     public MineGrid(int m){
         grid = new MineSpot[10][10];
         statN = new int[10][10];
         statM = new boolean[10][10];
         mines = m;
+
     }
     public void fillGrid(){
         genMine(mines);
@@ -104,44 +108,87 @@ public class MineGrid {
     public boolean getMine(int x, int y){
         return statM[x][y];
     }
-   /*public void deleteZeros(int x,int y){
-        if(checkZ(x,y) == true) {
-            if (checkZ(x - 1, y) == true) {
-                grid[x - 1][y].showNum();
-                deleteZeros(x - 1, y);
-            }
-            if (checkZ(x + 1, y) == true) {
-                grid[x + 1][y].showNum();
-                deleteZeros(x + 1, y);
-            }
-            if (checkZ(x, y - 1) == true) {
-                grid[x][y - 1].showNum();
-                deleteZeros(x, y - 1);
-            }
-            if (checkZ(x, y + 1) == true) {
-                grid[x][y + 1].showNum();
-                deleteZeros(x, y + 1);
-            }
-            if (checkZ(x - 1, y - 1) == true) {
-                grid[x - 1][y - 1].showNum();
-                deleteZeros(x - 1, y - 1);
-            }
-            if (checkZ(x - 1, y + 1) == true) {
-                grid[x - 1][y + 1].showNum();
-                deleteZeros(x - 1, y + 1);
-            }
-            if (checkZ(x + 1, y + 1) == true) {
-                grid[x + 1][y + 1].showNum();
-                deleteZeros(x + 1, y + 1);
-            }
-            if (checkZ(x + 1, y - 1) == true) {
-                grid[x + 1][y - 1].showNum();
-                deleteZeros(x + 1, y - 1);
-            }
+    public void moreErrors(int x, int y){
+        try{
+            grid[x][y].showNum();
+        }catch(Exception e){
+            return;
         }
+    }
+
+   public void deleteZeros(int x,int y){
+       if(grid[x][y].getNumber() == 0) {
+           try {
+               if (grid[x + 1][y].getNumber() == 0) {
+                   grid[x + 1][y].showNum();
+                   deleteZeros(x + 1, y);
+               }
+           } catch (Exception e) {
+               System.out.println("not on grid");
+           }
+           try {
+               if (grid[x - 1][y].getNumber() == 0) {
+                   grid[x - 1][y].showNum();
+                   deleteZeros(x - 1, y);
+               }
+           } catch (Exception e) {
+               System.out.println("not on grid");
+           }
+           try {
+               if (grid[x][y + 1].getNumber() == 0) {
+                   grid[x][y + 1].showNum();
+                   deleteZeros(x, y + 1);
+               }
+           } catch (Exception e) {
+               System.out.println("not on grid");
+           }
+           try {
+               if (grid[x][y - 1].getNumber() == 0) {
+                   grid[x][y - 1].showNum();
+                   deleteZeros(x, y - 1);
+               }
+           } catch (Exception e) {
+               System.out.println("not on grid");
+           }
+           try {
+               if (grid[x + 1][y + 1].getNumber() == 0) {
+                   grid[x + 1][y + 1].showNum();
+                   deleteZeros(x + 1, y + 1);
+               }
+           } catch (Exception e) {
+               System.out.println("not on grid");
+           }
+           try {
+               if (grid[x + 1][y - 1].getNumber() == 0) {
+                   grid[x + 1][y - 1].showNum();
+                   deleteZeros(x + 1, y - 1);
+               }
+           } catch (Exception e) {
+               System.out.println("not on grid");
+           }
+           try {
+               if (grid[x - 1][y + 1].getNumber() == 0) {
+                   grid[x - 1][y + 1].showNum();
+                   deleteZeros(x - 1, y + 1);
+               }
+           } catch (Exception e) {
+               System.out.println("not on grid");
+           }
+           try {
+               if (grid[x - 1][y - 1].getNumber() == 0) {
+                   grid[x - 1][y - 1].showNum();
+                   deleteZeros(x - 1, y - 1);
+               }
+           } catch (Exception e) {
+               System.out.println("not on grid");
+           }
+       }
+
+
+
    }
 
-    */
+
 public void lose(MineSpot s){
     if (s.toString().equals("*")){
         for(int x = 0;x < grid.length;x++){

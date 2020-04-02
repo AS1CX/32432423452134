@@ -26,7 +26,7 @@ public class RunSweeper extends JFrame  {
                         ms.grid[x][y].showNum();
                         ms.lose(ms.grid[x][y]);
 
-                        //ms.deleteZeros(x,y);
+                        ms.deleteZeros(x,y);
                     }
                 }
             }
