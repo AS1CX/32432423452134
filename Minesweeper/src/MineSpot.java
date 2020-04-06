@@ -1,14 +1,17 @@
 import javax.swing.*;
+import java.awt.*;
 
-    public class MineSpot {
+public class MineSpot {
     private JButton spot;
     private int num;
     private boolean mine;
+    private boolean flagged;
 
     public MineSpot(int n,boolean m){
         num = n;
         mine = m;
         spot = new JButton("");
+        flagged = false;
     }
     public void showNum(){
         if (num >= 9){
@@ -24,7 +27,22 @@ import javax.swing.*;
     public JButton getButton(){
         return spot;
     }
-    public int getNumber(){
+
+        public void setFlagged(boolean flagged) {
+            this.flagged = flagged;
+            if(flagged == true){
+                this.getButton().setBackground(Color.RED);
+            }else{
+                this.getButton().setBackground(null);
+            }
+
+        }
+
+        public boolean isFlagged() {
+            return flagged;
+        }
+
+        public int getNumber(){
             return num;
         }
     public String toString(){

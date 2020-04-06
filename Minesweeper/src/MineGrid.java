@@ -2,11 +2,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.lang.Math;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MineGrid {
 
     public MineSpot[][] grid;
+    public ArrayList<MineSpot> mineArr;
     public int[][] statN;
     public boolean[][] statM;
     public int mines;
@@ -17,6 +19,7 @@ public class MineGrid {
         grid = new MineSpot[10][10];
         statN = new int[10][10];
         statM = new boolean[10][10];
+        mineArr = new ArrayList<MineSpot>();
         mines = m;
 
     }
@@ -30,6 +33,7 @@ public class MineGrid {
         for(int x = 0;x < grid.length;x++){
             for(int y = 0;y < grid[x].length;y++){
                 grid[x][y] = new MineSpot(getNumber(x,y),getMine(x,y));
+                mineArr.add(grid[x][y]);
             }
         }
         System.out.println(Arrays.deepToString(grid));
@@ -55,6 +59,14 @@ public class MineGrid {
             }
         }
 
+
+    }
+    public void checkWin(){
+        for (int i = 0; i < mineArr.size(); i++) {
+            if(mineArr.get(i).isFlagged() == false){
+                return;
+            }
+        }
 
     }
     public boolean check(int x,int y){
@@ -108,26 +120,21 @@ public class MineGrid {
     public boolean getMine(int x, int y){
         return statM[x][y];
     }
-    public void moreErrors(int x, int y){
-        try{
-            grid[x][y].showNum();
-        }catch(Exception e){
-            return;
-        }
-    }
+
 
    public void deleteZeros(int x,int y){
        if(grid[x][y].getNumber() == 0) {
            try {
-               if (grid[x + 1][y].getNumber() == 0) {
+               if (!(grid[x + 1][y].getNumber() >= 9) && grid[x + 1][y].getButton().isVisible() ) {
                    grid[x + 1][y].showNum();
+
                    deleteZeros(x + 1, y);
                }
            } catch (Exception e) {
                System.out.println("not on grid");
            }
            try {
-               if (grid[x - 1][y].getNumber() == 0) {
+               if (!(grid[x - 1][y].getNumber() >= 9) && grid[x - 1][y].getButton().isVisible()) {
                    grid[x - 1][y].showNum();
                    deleteZeros(x - 1, y);
                }
@@ -135,7 +142,7 @@ public class MineGrid {
                System.out.println("not on grid");
            }
            try {
-               if (grid[x][y + 1].getNumber() == 0) {
+               if (!(grid[x][y + 1].getNumber() >= 9) && grid[x][y + 1].getButton().isVisible()) {
                    grid[x][y + 1].showNum();
                    deleteZeros(x, y + 1);
                }
@@ -143,7 +150,7 @@ public class MineGrid {
                System.out.println("not on grid");
            }
            try {
-               if (grid[x][y - 1].getNumber() == 0) {
+               if (!(grid[x][y - 1].getNumber() >= 9) && grid[x][y - 1].getButton().isVisible()) {
                    grid[x][y - 1].showNum();
                    deleteZeros(x, y - 1);
                }
@@ -151,7 +158,7 @@ public class MineGrid {
                System.out.println("not on grid");
            }
            try {
-               if (grid[x + 1][y + 1].getNumber() == 0) {
+               if (!(grid[x + 1][y + 1].getNumber() >= 9) && grid[x + 1][y + 1].getButton().isVisible()) {
                    grid[x + 1][y + 1].showNum();
                    deleteZeros(x + 1, y + 1);
                }
@@ -159,7 +166,7 @@ public class MineGrid {
                System.out.println("not on grid");
            }
            try {
-               if (grid[x + 1][y - 1].getNumber() == 0) {
+               if (!(grid[x + 1][y - 1].getNumber() >= 9) && grid[x + 1][y - 1].getButton().isVisible()) {
                    grid[x + 1][y - 1].showNum();
                    deleteZeros(x + 1, y - 1);
                }
@@ -167,7 +174,7 @@ public class MineGrid {
                System.out.println("not on grid");
            }
            try {
-               if (grid[x - 1][y + 1].getNumber() == 0) {
+               if (!(grid[x - 1][y + 1].getNumber() >= 9) && grid[x - 1][y + 1].getButton().isVisible()) {
                    grid[x - 1][y + 1].showNum();
                    deleteZeros(x - 1, y + 1);
                }
@@ -175,7 +182,7 @@ public class MineGrid {
                System.out.println("not on grid");
            }
            try {
-               if (grid[x - 1][y - 1].getNumber() == 0) {
+               if (!(grid[x - 1][y - 1].getNumber() >= 9) && grid[x - 1][y - 1].getButton().isVisible()) {
                    grid[x - 1][y - 1].showNum();
                    deleteZeros(x - 1, y - 1);
                }
