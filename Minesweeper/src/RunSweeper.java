@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-//import java.awt.geom.*;
 
 //Project made by Adam Smith
 
@@ -10,13 +9,14 @@ public class RunSweeper extends JFrame  {
 
     public static JLabel lose;
     public static JLabel win;
+    public static JButton start;
 
     RunSweeper(){
        createGUI();
 
     }
 
-    public MineGrid ms= new MineGrid(12);
+    public MineGrid ms= new MineGrid(15);
     public ActionListener mineClicked = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -25,11 +25,10 @@ public class RunSweeper extends JFrame  {
                 for (int y = 0; y < ms.grid[x].length; y++) {
                     if (ms.grid[x][y].getButton() == clicked) {
                         ms.grid[x][y].showNum();
-
-
+                       // ms.grid[x][y].whenClicked();
                         ms.deleteZeros(x,y);
                         ms.lose(ms.grid[x][y]);
-                        ms.checkWin();
+                        checkWin();
                     }
                 }
             }
@@ -37,8 +36,8 @@ public class RunSweeper extends JFrame  {
     };
     public ActionListener startE = new ActionListener(){
         public void actionPerformed(ActionEvent e) {
-
             ms.fillGrid();
+            remove(start);
             for(int x = 0;x < ms.grid.length;x++){
                 for(int y = 0;y < ms.grid[x].length;y++){
                     ms.grid[x][y].getButton().addActionListener(mineClicked);
@@ -80,7 +79,6 @@ public class RunSweeper extends JFrame  {
                     ms.grid[x][y].getButton().setBounds((x*50)+250,(y*50)+100,50,50);
                     ms.grid[x][y].getButton().setFont(new Font("Comic Sans MS", Font.BOLD, 20));
                     add(ms.grid[x][y].getButton());
-                    System.out.print("added");
 
                 }
             }
@@ -92,15 +90,24 @@ public class RunSweeper extends JFrame  {
 
 
     };
+    public void checkWin(){
+        if(MineSpot.getWin() == 0 && MineGrid.lose == false){
+            win.setVisible(true);
+            MineGrid.win = true;
+
+        }
+    }
     private void createGUI(){
 
-        JButton start = new JButton("Start");
+        start = new JButton("Start");
          lose = new JLabel("You Lost");
-        lose.setBounds(400,300,100,50);
+        lose.setBounds(450,50,200,50);
+        lose.setFont(new Font("Comic Sans MS", Font.BOLD, 25));
         add(lose);
         lose.setVisible(false);
         win = new JLabel("You Win");
-        win.setBounds(400,300,100,50);
+        win.setBounds(450,50,200,50);
+        win.setFont(new Font("Comic Sans MS", Font.BOLD, 25));
         add(win);
         win.setVisible(false);
         start.setBounds(0,600,100,100);

@@ -1,28 +1,25 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 import java.lang.Math;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MineGrid {
 
     public MineSpot[][] grid;
-    public ArrayList<MineSpot> mineArr;
     public int[][] statN;
     public boolean[][] statM;
-    public int mines;
-
-
+    public static int mines;
+    public static boolean win;
+    public static boolean lose;
 
     public MineGrid(int m){
         grid = new MineSpot[10][10];
         statN = new int[10][10];
         statM = new boolean[10][10];
-        mineArr = new ArrayList<MineSpot>();
         mines = m;
+        win = false;
+        lose = false;
 
     }
+
     public void fillGrid(){
         genMine(mines);
         genNumber();
@@ -33,11 +30,11 @@ public class MineGrid {
         for(int x = 0;x < grid.length;x++){
             for(int y = 0;y < grid[x].length;y++){
                 grid[x][y] = new MineSpot(getNumber(x,y),getMine(x,y));
-                mineArr.add(grid[x][y]);
             }
         }
         System.out.println(Arrays.deepToString(grid));
     }
+
     public void genMine(int mines){
         int minesLeft = mines;
         int randX;
@@ -61,14 +58,7 @@ public class MineGrid {
 
 
     }
-    public void checkWin(){
-        for (int i = 0; i < mineArr.size(); i++) {
-            if(mineArr.get(i).isFlagged() == false){
-                return;
-            }
-        }
 
-    }
     public boolean check(int x,int y){
         try{
             return statM[x][y];
@@ -77,14 +67,7 @@ public class MineGrid {
         }
 
     }
-    public boolean checkZ(int x,int y){
-        try{
-            return grid[x][y].getNumber() == 0;
-        }catch(Exception e) {
-            return false;
-        }
 
-    }
     public void genNumber(){
 
         for (int x = 0; x < statN.length; x++) {
@@ -109,18 +92,17 @@ public class MineGrid {
                 }if (check(x+1,y-1) == true) {
                     statN[x][y] += 1;
                 }
-
             }
-
         }
     }
+
     public int getNumber(int x, int y){
         return statN[x][y];
     }
+
     public boolean getMine(int x, int y){
         return statM[x][y];
     }
-
 
    public void deleteZeros(int x,int y){
        if(grid[x][y].getNumber() == 0) {
@@ -190,19 +172,16 @@ public class MineGrid {
                System.out.println("not on grid");
            }
        }
-
-
-
    }
 
-
 public void lose(MineSpot s){
-    if (s.toString().equals("*")){
+    if (s.toString().equals("*") && !(win == true)){
         for(int x = 0;x < grid.length;x++){
             for(int y = 0;y < grid[x].length;y++){
                 if(!(grid[x][y].getMine() == true)) {
                     grid[x][y].getButton().setVisible(false);
                     RunSweeper.lose.setVisible(true);
+                    lose = true;
 
                 }else{
                     grid[x][y].showNum();
